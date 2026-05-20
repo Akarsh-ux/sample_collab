@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Registration &#8211; iCare Brighter Future Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0e2340; --navy-2:#152d52; --navy-3:#1e3f6f;
+  --teal:#1a7fa6; --teal-l:#2496bf;
+  --gold:#f5a623; --gold-h:#f7b84a;
+  --white:#ffffff; --bg:#f0f4f8; --surface:#f8fafc;
+  --text:#0e2340; --text-2:#3a5470; --text-3:#7090aa;
+  --border:#d0dde8; --border-2:#e4edf5;
+  --red:#d94040; --red-bg:#fdf1f1;
+  --green:#1d9e6e;
+  --sb-w:232px; --hh:60px; --fh:44px;
+  --r:8px; --rl:12px;
+  --sh:0 1px 3px rgba(14,35,64,.06),0 4px 16px rgba(14,35,64,.08);
+  --shl:0 8px 40px rgba(14,35,64,.18);
+  --ease:cubic-bezier(.4,0,.2,1); --sp:.18s;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:13.5px;line-height:1.5;min-height:100%}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:rgba(14,35,64,.14);border-radius:4px}
+svg{display:inline-block;vertical-align:middle;flex-shrink:0}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--hh);background:var(--navy);display:flex;align-items:center;box-shadow:0 1px 0 rgba(255,255,255,.06),0 4px 20px rgba(0,0,0,.28)}
+.hbrand{display:flex;align-items:center;gap:10px;width:var(--sb-w);padding:0 18px;height:100%;border-right:1px solid rgba(255,255,255,.08);text-decoration:none;flex-shrink:0;transition:width var(--sp) var(--ease);overflow:hidden}
+.logo-mark{width:38px;height:38px;flex-shrink:0;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-text .l1{font-size:12px;font-weight:700;color:var(--white);line-height:1.15;white-space:nowrap}
+.logo-text .l1 span{color:var(--gold)}
+.logo-text .l2{font-size:10.5px;color:rgba(255,255,255,.5);white-space:nowrap;font-weight:400}
+.hdr-tog{background:none;border:none;cursor:pointer;padding:8px;margin-left:4px;color:rgba(255,255,255,.6);display:flex;align-items:center;border-radius:6px;transition:color var(--sp),background var(--sp)}
+.hdr-tog:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hdr-r{display:flex;align-items:center;gap:10px;margin-left:auto;padding:0 20px}
+.hdr-user{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.75);font-size:13px;font-weight:500}
+.hdr-av{width:28px;height:28px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.btn-lo{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.8);font-size:12.5px;font-weight:500;padding:5px 13px;border-radius:6px;cursor:pointer;transition:background var(--sp);font-family:inherit}
+.btn-lo:hover{background:rgba(255,255,255,.16)}
+.hdr-ico{background:none;border:none;cursor:pointer;padding:6px;color:rgba(255,255,255,.45);display:flex;align-items:center;border-radius:6px;transition:color var(--sp),background var(--sp)}
+.hdr-ico:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.08)}
+.sb{position:fixed;top:var(--hh);left:0;bottom:var(--fh);width:var(--sb-w);background:var(--navy);z-index:200;overflow-y:auto;overflow-x:hidden;border-right:1px solid rgba(255,255,255,.06);transition:width var(--sp) var(--ease);display:flex;flex-direction:column}
+.sb.col{width:56px}
+.sb-srch{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-sw{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);border-radius:6px;padding:7px 10px;transition:background var(--sp)}
+.sb-sw:focus-within{background:rgba(255,255,255,.11)}
+.sb-sw svg{color:rgba(255,255,255,.35);flex-shrink:0}
+.sb-sw input{background:none;border:none;outline:none;color:#fff;font-size:12.5px;width:100%;font-family:inherit}
+.sb-sw input::placeholder{color:rgba(255,255,255,.3)}
+.sb.col .sb-sw{justify-content:center;padding:8px}
+.sb.col .sb-sw input,.sb.col .nl,.sb.col .nchev,.sb.col .nsec{display:none}
+.nsec{font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.25);padding:16px 18px 5px;white-space:nowrap;overflow:hidden}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 18px;color:rgba(255,255,255,.58);font-size:13px;text-decoration:none;cursor:pointer;border-left:3px solid transparent;transition:background var(--sp),color var(--sp);white-space:nowrap;overflow:hidden}
+.ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.88)}
+.ni.active{background:rgba(245,166,35,.12);color:var(--gold);border-left-color:var(--gold)}
+.sb.col .ni{justify-content:center;padding:11px;border-left-width:0}
+.sb.col .ni.active{background:rgba(245,166,35,.15)}
+.nico{display:flex;align-items:center;flex-shrink:0}
+.nchev{margin-left:auto;display:flex;align-items:center;color:rgba(255,255,255,.22)}
+.main{margin-top:var(--hh);margin-left:var(--sb-w);margin-bottom:var(--fh);padding:28px 30px;transition:margin-left var(--sp) var(--ease);min-height:calc(100vh - var(--hh) - var(--fh))}
+.main.col{margin-left:56px}
+.ftr{position:fixed;bottom:0;left:0;right:0;height:var(--fh);background:var(--navy);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.32);font-size:12px;z-index:200;border-top:1px solid rgba(255,255,255,.06);gap:4px}
+.ftr strong{color:var(--gold);font-weight:600}
+.ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.ptitle{font-size:22px;font-weight:700;color:var(--navy);letter-spacing:-.4px}
+.psubtitle{font-size:13px;color:var(--text-3);margin-top:2px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--r);border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background var(--sp),transform var(--sp),box-shadow var(--sp);white-space:nowrap}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--gold);color:var(--navy)}.btn-primary:hover{background:var(--gold-h);box-shadow:0 4px 12px rgba(245,166,35,.35)}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-2)}
+.btn-ghost{background:#fff;color:var(--text-2);border:1.5px solid var(--border)}.btn-ghost:hover{background:var(--bg)}
+.btn-danger{background:var(--red);color:#fff}.btn-danger:hover{opacity:.9}
+.card{background:var(--white);border-radius:var(--rl);box-shadow:var(--sh);margin-bottom:20px;border:1px solid var(--border-2)}
+.ch{display:flex;align-items:center;gap:9px;padding:14px 22px;border-bottom:1px solid var(--border-2)}
+.ch-ico{width:30px;height:30px;background:var(--bg);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--navy-3)}
+.ch-title{font-size:13.5px;font-weight:600;color:var(--navy)}
+.cb{padding:18px 22px}
+.fg{display:grid;gap:14px}
+.fg-3{grid-template-columns:repeat(3,1fr)}
+.fg-2{grid-template-columns:1fr 1fr}
+@media(max-width:900px){.fg-3{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.fg-3,.fg-2{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.55px}
+.field input,.field select{width:100%;padding:8.5px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;color:var(--text);background:#fff;outline:none;font-family:inherit;transition:border-color var(--sp),box-shadow var(--sp);appearance:none;-webkit-appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237090aa' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+.field input:focus,.field select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,127,166,.12)}
+.field input.err,.field select.err{border-color:var(--red)!important}
+.req{color:var(--red)}
+.fa{display:flex;gap:10px;justify-content:center;margin-top:6px}
+.ph-wrap{display:flex;gap:0;align-items:stretch}
+.ph-cc{border:1.5px solid var(--border)!important;border-right:none!important;border-radius:7px 0 0 7px!important;padding:8.5px 8px!important;font-size:13px;color:var(--text);background:#fff;outline:none;font-family:inherit;flex-shrink:0;appearance:none;-webkit-appearance:none;min-width:82px;cursor:pointer;background-image:none!important;transition:border-color var(--sp),box-shadow var(--sp)}
+.ph-cc:focus{border-color:var(--teal)!important;box-shadow:0 0 0 3px rgba(26,127,166,.12)}
+.ph-inp{border-radius:0 7px 7px 0!important;flex:1}
+/* zip auto-fill indicator */
+.zip-wrap{position:relative}
+.zip-spin{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:none}
+.zip-spin.on{display:block;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+.zip-ok{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:none;color:var(--green)}
+.zip-ok.on{display:block}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{background:var(--navy)}
+thead th{padding:12px 16px;text-align:left;color:rgba(255,255,255,.82);font-weight:600;font-size:11.5px;letter-spacing:.3px;white-space:nowrap}
+thead th:first-child{border-radius:var(--r) 0 0 0}thead th:last-child{border-radius:0 var(--r) 0 0}
+tbody tr{border-bottom:1px solid var(--border-2);transition:background var(--sp)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#f4f8fc}
+tbody td{padding:11px 16px;vertical-align:middle}
+.td-empty{text-align:center;padding:48px 20px!important;color:var(--text-3);font-size:13.5px}
+.ag{display:flex;gap:5px;align-items:center}
+.act{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:6px;font-size:11.5px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:opacity var(--sp),transform var(--sp)}
+.act:hover{opacity:.84;transform:translateY(-1px)}
+.av{background:var(--bg);color:var(--text-2);border:1.5px solid var(--border)}
+.ae{background:var(--navy-2);color:#fff}.ad{background:var(--red);color:#fff}
+.tft{display:flex;align-items:center;justify-content:space-between;padding:13px 22px;border-top:1px solid var(--border-2);flex-wrap:wrap;gap:10px}
+.pag{display:flex;gap:4px;align-items:center}
+.pgb{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 4px;border-radius:6px;border:1.5px solid var(--border);background:#fff;color:var(--text-2);font-size:13px;cursor:pointer;font-family:inherit;transition:background var(--sp),border-color var(--sp)}
+.pgb.active{background:var(--navy);color:#fff;border-color:var(--navy)}.pgb:hover:not(.active):not(:disabled){background:var(--bg)}.pgb:disabled{opacity:.35;pointer-events:none}
+.pgtext{font-size:12.5px;color:var(--text-3)}
+.shw{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--text-3)}
+.shw select{padding:4px 22px 4px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:12.5px;font-family:inherit;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%237090aa' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 7px center;appearance:none;-webkit-appearance:none;outline:none}
+.overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(8,20,40,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px}
+.overlay.open{display:flex;animation:oi .15s ease}@keyframes oi{from{opacity:0}to{opacity:1}}
+.modal{background:#fff;border-radius:var(--rl);box-shadow:var(--shl);width:100%;max-width:740px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;animation:mi .2s var(--ease);border:1px solid var(--border-2)}
+@keyframes mi{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.msm{max-width:420px}
+.mhdr{background:var(--navy);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.mhl{display:flex;align-items:center;gap:10px}
+.mico{width:32px;height:32px;background:rgba(245,166,35,.18);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.mtitle{color:#fff;font-size:15px;font-weight:700}
+.msub{color:rgba(255,255,255,.48);font-size:11.5px;margin-top:1px}
+.mcls{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.7);width:30px;height:30px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--sp)}
+.mcls:hover{background:rgba(255,255,255,.2);color:#fff}
+.mbody{padding:22px 24px;overflow-y:auto;flex:1}
+.mfoot{padding:14px 22px;border-top:1px solid var(--border-2);display:flex;justify-content:flex-end;gap:10px;background:var(--surface);flex-shrink:0}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.mg{grid-template-columns:1fr}}
+.mg .s2{grid-column:1/-1}
+.fd{grid-column:1/-1;display:flex;align-items:center;gap:10px;margin:4px 0 2px}
+.fdl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--teal);white-space:nowrap}
+.fdln{flex:1;height:1px;background:var(--border-2)}
+.mbody.ro .field input,.mbody.ro .field select{background:var(--surface)!important;color:var(--text-2)!important;border-color:var(--border)!important;cursor:default;pointer-events:none}
+.mbody.ro .ph-cc{background:var(--surface)!important;color:var(--text-2)!important;border-color:var(--border)!important;cursor:default;pointer-events:none}
+.mbody.ro .phu{pointer-events:none;opacity:.75}
+.phu{border:2px dashed var(--border);border-radius:8px;padding:18px 14px;text-align:center;cursor:pointer;transition:border-color var(--sp),background var(--sp);background:var(--surface);position:relative;overflow:hidden}
+.phu:hover{border-color:var(--teal);background:#f0f8fb}
+.phu input[type=file]{display:none}
+.phu-ico{color:var(--text-3);margin-bottom:8px;display:flex;justify-content:center}
+.phu-txt strong{display:block;color:var(--text-2);font-size:13px;font-weight:600;margin-bottom:2px}
+.phu-txt span{font-size:11.5px;color:var(--text-3)}
+#photo-prev{width:100%;height:130px;object-fit:cover;display:none;border-radius:6px}
+.phu.loaded .phu-ico,.phu.loaded .phu-txt{display:none}
+.phu.loaded #photo-prev{display:block}
+.chkg{display:flex;flex-direction:column;gap:10px}
+.chki{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;border-radius:7px;border:1.5px solid var(--border-2);background:#fff;transition:border-color var(--sp),background var(--sp)}
+.chki:hover{border-color:var(--teal);background:#f0f8fb}
+.chki input[type=checkbox]{width:16px;height:16px;accent-color:var(--teal);cursor:pointer;flex-shrink:0;margin-top:2px}
+.chki span{font-size:13px;color:var(--text);line-height:1.45}
+.chki.ro input{cursor:not-allowed}.chki.ro{cursor:default;opacity:.7}
+.cc{padding:30px 28px 22px;text-align:center}
+.ciw{width:60px;height:60px;border-radius:50%;background:var(--red-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--red)}
+.cc h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--navy)}.cc p{font-size:13.5px;color:var(--text-3);line-height:1.6}
+.cft{display:flex;gap:10px;padding:14px 22px;border-top:1px solid var(--border-2);justify-content:center;background:var(--surface)}
+/* total count badge */
+.ttl-badge{background:var(--navy);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:8px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <a class="hbrand" id="hbrand" href="#">
+    <div class="logo-mark">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2.5" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    </div>
+    <div class="logo-text" id="logo-text">
+      <div class="l1">iCare <span>Brighter Future</span></div>
+      <div class="l2">Foundation</div>
+    </div>
+  </a>
+  <button class="hdr-tog" onclick="toggleSb()" title="Toggle sidebar">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="hdr-r">
+    <div class="hdr-user">
+      <div class="hdr-av">D</div>
+      <span>divya</span>
+    </div>
+    <button class="btn-lo" onclick="location.href='login.html'">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Logout
+    </button>
+    <button class="hdr-ico">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </div>
+</header>
+<aside class="sb" id="sb">
+  <div class="sb-srch">
+    <div class="sb-sw">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search&hellip;">
+    </div>
+  </div>
+  <nav>
+    <a class="ni" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="nl">Dashboard</span></a>
+    <a class="ni" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span><span class="nl">Catalog</span><span class="nchev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span></a>
+    <a class="ni" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span><span class="nl">Sales</span><span class="nchev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span></a>
+    <a class="ni active" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="nl">Patient Registration</span></a>
+    <a class="ni" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span><span class="nl">Promotions</span><span class="nchev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span></a>
+    <a class="ni" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><span class="nl">Content Management</span><span class="nchev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span></a>
+    <div class="nsec">Administration</div>
+    <a class="ni" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span class="nl">Configuration</span><span class="nchev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span></a>
+    <a class="ni" href="user_registration.html"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nl">User Registration</span></a>
+    <a class="ni" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="nl">Reports</span><span class="nchev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span></a>
+    <a class="ni" href="#"><span class="nico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span class="nl">Help</span><span class="nchev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span></a>
+  </nav>
+</aside>
+<main class="main" id="main">
+  <div class="ptop">
+    <div>
+      <h1 class="ptitle">Patient Registration</h1>
+      <p class="psubtitle">Register and manage patients across all camps</p>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('create')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Create New Patient
+    </button>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ch-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><span class="ch-title">Search &amp; Filter</span></div>
+    <div class="cb">
+      <div class="fg fg-3" style="margin-bottom:16px">
+        <div class="field"><label>First Name</label><input type="text" id="f-fn" placeholder="First name"></div>
+        <div class="field"><label>Last Name</label><input type="text" id="f-ln" placeholder="Last name"></div>
+        <div class="field"><label>Camp</label>
+          <select id="f-camp"><option value="">All Camps</option><option>Camp Alpha</option><option>Camp Beta</option><option>Camp Gamma</option><option>Camp Delta</option><option>Camp Epsilon</option></select>
+        </div>
+      </div>
+      <div class="fa">
+        <button class="btn btn-navy" onclick="applyF()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</button>
+        <button class="btn btn-ghost" onclick="clearF()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Clear</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tw">
+      <table>
+        <thead><tr><th>First Name</th><th>Last Name</th><th>Date of Birth</th><th>Age</th><th>City</th><th>Camp</th><th>Actions</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="tft">
+      <div class="pag" id="pag"></div>
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+        <div class="shw">Show<select id="pgsz" onchange="goPage(1)"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option></select>items</div>
+        <span class="pgtext" id="pginfo"></span>
+        <button class="pgb" onclick="loadPage(currentPage)" title="Refresh"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></button>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="ftr"><span>&copy; 2026</span><strong>iCare Brighter Future Foundation</strong><span>&middot; All rights reserved</span></footer>
+
+<!-- PATIENT MODAL -->
+<div class="overlay" id="pmod">
+  <div class="modal">
+    <div class="mhdr">
+      <div class="mhl">
+        <div class="mico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div><div class="mtitle" id="mtitle">Create New Patient</div><div class="msub" id="msub">Fill in the details below</div></div>
+      </div>
+      <button class="mcls" onclick="closeM('pmod')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="mbody" id="mbody">
+      <input type="hidden" id="mid">
+      <div class="mg">
+
+        <!-- SECTION: Personal Information -->
+        <div class="fd"><span class="fdl">Personal Information</span><span class="fdln"></span></div>
+        <div class="field"><label>First Name <span class="req">*</span></label><input type="text" id="mfn" placeholder="First name"></div>
+        <div class="field"><label>Last Name <span class="req">*</span></label><input type="text" id="mln" placeholder="Last name"></div>
+        <div class="field"><label>Date of Birth</label><input type="date" id="mdob" onchange="calcAge()"></div>
+        <div class="field"><label>Age</label><input type="number" id="mage" placeholder="Auto-calculated" min="0"></div>
+        <div class="field"><label>Gender</label>
+          <select id="mgen"><option value="">Select gender</option><option>Male</option><option>Female</option><option>Other</option><option>Prefer not to say</option></select>
+        </div>
+        <div class="field"><label>Camp <span class="req">*</span></label>
+          <select id="mcamp"><option value="">Select camp</option><option>Camp Alpha</option><option>Camp Beta</option><option>Camp Gamma</option><option>Camp Delta</option><option>Camp Epsilon</option></select>
+        </div>
+
+        <!-- SECTION: Contact -->
+        <div class="fd s2"><span class="fdl">Contact</span><span class="fdln"></span></div>
+        <div class="field"><label>Phone Number</label>
+          <div class="ph-wrap">
+            <select id="mphcc" class="ph-cc">
+              <option value="+1">&#127482;&#127480; +1</option>
+              <option value="+91">&#127470;&#127475; +91</option>
+            </select>
+            <input type="tel" id="mph" class="ph-inp" placeholder="(555) 000-0000">
+          </div>
+        </div>
+
+        <!-- SECTION: Address -->
+        <div class="fd s2"><span class="fdl">Address</span><span class="fdln"></span></div>
+        <div class="field s2"><label>Street Address</label><input type="text" id="madr" placeholder="Street address"></div>
+        <div class="field">
+          <label>Zip Code</label>
+          <div class="zip-wrap" style="position:relative">
+            <input type="text" id="mzp" placeholder="00000" maxlength="10" oninput="onZipInput(this.value)" style="padding-right:32px">
+            <svg class="zip-spin" id="zip-spin" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+            <svg class="zip-ok" id="zip-ok" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div class="field"><label>Country</label>
+          <select id="mcountry" onchange="onCountryChange()">
+            <option value="">Select country</option>
+          </select>
+        </div>
+        <div class="field"><label>State / Province</label>
+          <select id="mstate" onchange="onStateChange()">
+            <option value="">Select state</option>
+          </select>
+        </div>
+        <div class="field"><label>City</label>
+          <select id="mcity">
+            <option value="">Select city</option>
+          </select>
+        </div>
+
+        <!-- Photo Upload -->
+        <div class="field s2">
+          <label>Patient Photo</label>
+          <label class="phu" id="phu">
+            <div class="phu-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg></div>
+            <div class="phu-txt"><strong>Click to upload photo</strong><span>JPG, PNG &mdash; max 5 MB</span></div>
+            <img id="photo-prev" src="" alt="Photo preview">
+            <input type="file" id="photo-inp" accept="image/*" onchange="prevPhoto(event)">
+          </label>
+        </div>
+
+        <!-- SECTION: Medical Questionnaire -->
+        <div class="fd s2"><span class="fdl">Medical Questionnaire</span><span class="fdln"></span></div>
+        <div class="s2">
+          <div class="chkg" id="chkg">
+            <label class="chki"><input type="checkbox" id="chk1"><span>Blurred vision, frequent headaches, eye strain, or persistent eye dryness</span></label>
+            <label class="chki"><input type="checkbox" id="chk2"><span>Difficulty seeing objects near or far</span></label>
+            <label class="chki"><input type="checkbox" id="chk3"><span>Double vision or sensitivity to bright light</span></label>
+            <label class="chki"><input type="checkbox" id="chk4"><span>Currently wearing glasses or contact lenses</span></label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn btn-ghost" id="btn-back" onclick="closeM('pmod')" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Back
+      </button>
+      <button class="btn btn-ghost" id="btn-cancel" onclick="closeM('pmod')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Cancel
+      </button>
+      <button class="btn btn-primary" id="btn-save" onclick="savePat()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        <span id="save-lbl">Create Patient</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM -->
+<div class="overlay" id="dmod">
+  <div class="modal msm">
+    <div class="mhdr">
+      <div class="mhl">
+        <div class="mico" style="background:rgba(217,64,64,.2);color:var(--red)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></div>
+        <div class="mtitle">Confirm Deletion</div>
+      </div>
+      <button class="mcls" onclick="closeM('dmod')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cc">
+      <div class="ciw"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>
+      <h3>Delete Patient?</h3>
+      <p id="dmsg">Are you sure you want to delete this patient? This action cannot be undone.</p>
+    </div>
+    <div class="cft">
+      <button class="btn btn-ghost" onclick="closeM('dmod')">No, Cancel</button>
+      <button class="btn btn-danger" onclick="confirmDel()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Yes, Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── CONFIGURATION ────────────────────────────────────────────────
+const API_BASE = 'http://localhost:5001';
+
+// ─── STATE ────────────────────────────────────────────────────────
+let currentPage = 1;
+let currentFilters = { fn:'', ln:'', camp:'' };
+let lastTotal = 0;
+const g = id => document.getElementById(id);
+
+// ─── SIDEBAR ──────────────────────────────────────────────────────
+let sbc = false;
+function toggleSb() {
+  sbc = !sbc;
+  g('sb').classList.toggle('col', sbc);
+  g('main').classList.toggle('col', sbc);
+  g('hbrand').style.width = sbc ? '56px' : 'var(--sb-w)';
+  g('logo-text').style.display = sbc ? 'none' : '';
+}
+
+// ─── DROPDOWNS LOADING ────────────────────────────────────────────
+async function loadCampsDropdowns() {
+  try {
+    const res = await fetch(`${API_BASE}/lookups/camps`);
+    const json = await res.json();
+    if (!res.ok) return;
+    const camps = json.data;
+    
+    // Populate filters camp dropdown
+    const fCamp = g('f-camp');
+    fCamp.innerHTML = '<option value="">All Camps</option>';
+    camps.forEach(c => {
+      fCamp.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+    });
+
+    // Populate modal camp dropdown
+    const mCamp = g('mcamp');
+    mCamp.innerHTML = '<option value="">Select camp</option>';
+    camps.forEach(c => {
+      mCamp.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+    });
+  } catch(e) { console.error('Failed to load camps lookup', e); }
+}
+
+async function loadCountriesDropdown() {
+  try {
+    const res = await fetch(`${API_BASE}/lookups/countries`);
+    const json = await res.json();
+    if (!res.ok) return;
+    const countries = json.data;
+    
+    const mCountry = g('mcountry');
+    mCountry.innerHTML = '<option value="">Select country</option>';
+    countries.forEach(c => {
+      const emoji = c.iso2 === 'US' ? '🇺🇸' : c.iso2 === 'IN' ? '🇮🇳' : '🌐';
+      mCountry.innerHTML += `<option value="${c.id}">${emoji} ${c.name}</option>`;
+    });
+  } catch(e) { console.error('Failed to load countries lookup', e); }
+}
+
+async function loadStates(countryId) {
+  if (!countryId) {
+    g('mstate').innerHTML = '<option value="">Select state</option>';
+    g('mcity').innerHTML = '<option value="">Select city</option>';
+    return;
+  }
+  try {
+    const res = await fetch(`${API_BASE}/lookups/states/${countryId}`);
+    const json = await res.json();
+    if (!res.ok) return;
+    const states = json.data;
+    
+    const mState = g('mstate');
+    mState.innerHTML = '<option value="">Select state</option>';
+    states.forEach(s => {
+      mState.innerHTML += `<option value="${s.id}">${s.name}</option>`;
+    });
+  } catch(e) { console.error('Failed to load states', e); }
+}
+
+async function loadCities(stateId) {
+  if (!stateId) {
+    g('mcity').innerHTML = '<option value="">Select city</option>';
+    return;
+  }
+  try {
+    const res = await fetch(`${API_BASE}/lookups/cities/${stateId}`);
+    const json = await res.json();
+    if (!res.ok) return;
+    const cities = json.data;
+    
+    const mCity = g('mcity');
+    mCity.innerHTML = '<option value="">Select city</option>';
+    cities.forEach(c => {
+      mCity.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+    });
+  } catch(e) { console.error('Failed to load cities', e); }
+}
+
+async function onCountryChange() {
+  const countryId = g('mcountry').value;
+  await loadStates(countryId);
+  g('mcity').innerHTML = '<option value="">Select city</option>';
+  
+  // Phone helper based on country select
+  const selectedText = g('mcountry').options[g('mcountry').selectedIndex]?.text || '';
+  if (selectedText.includes('India')) g('mphcc').value = '+91';
+  else if (selectedText.includes('United States')) g('mphcc').value = '+1';
+}
+
+async function onStateChange() {
+  const stateId = g('mstate').value;
+  await loadCities(stateId);
+}
+
+// ─── PAGINATED REST API CALL ──────────────────────────────────────
+async function apiGetPatients({page, pageSize, fn, ln, camp}) {
+  const offset = (page - 1) * pageSize;
+  const url = new URL(`${API_BASE}/patients`);
+  url.searchParams.append('limit', pageSize);
+  url.searchParams.append('offset', offset);
+  if (fn) url.searchParams.append('first_name', fn);
+  if (ln) url.searchParams.append('last_name', ln);
+  if (camp) url.searchParams.append('camp_id', camp);
+
+  const res = await fetch(url);
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.error || 'Failed to fetch patients');
+  return {
+    data: json.data.patients,
+    total: json.data.pagination.total,
+    page,
+    pageSize
+  };
+}
+
+// ─── FILTERS ──────────────────────────────────────────────────────
+function applyF() {
+  currentFilters = {
+    fn: g('f-fn').value.trim(),
+    ln: g('f-ln').value.trim(),
+    camp: g('f-camp').value
+  };
+  goPage(1);
+}
+function clearF() {
+  g('f-fn').value = ''; g('f-ln').value = ''; g('f-camp').value = '';
+  currentFilters = { fn:'', ln:'', camp:'' };
+  goPage(1);
+}
+function goPage(p) { currentPage = p; loadPage(p); }
+
+// ─── LOAD PAGE FROM API ───────────────────────────────────────────
+async function loadPage(page) {
+  const pageSize = parseInt(g('pgsz').value);
+  const tb = g('tbody');
+  tb.innerHTML = `<tr><td colspan="7" class="td-empty" style="padding:30px!important">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" style="display:block;margin:0 auto 8px;animation:spin .7s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+    Loading patients&hellip;</td></tr>`;
+
+  try {
+    const result = await apiGetPatients({ page, pageSize, ...currentFilters });
+    lastTotal = result.total;
+    renderTable(result.data);
+    renderPagination(page, pageSize, result.total);
+    const s = (page - 1) * pageSize + 1;
+    const e = Math.min(page * pageSize, result.total);
+    g('pginfo').textContent = result.total
+      ? `${s}–${e} of ${result.total} patient${result.total !== 1 ? 's' : ''}`
+      : 'No results';
+  } catch(err) {
+    tb.innerHTML = `<tr><td colspan="7" class="td-empty" style="color:var(--red)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:block;margin:0 auto 8px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Error: ${err.message}</td></tr>`;
+    g('pginfo').textContent = 'Error';
+  }
+}
+
+// ─── RENDER TABLE ─────────────────────────────────────────────────
+function fmtDOB(d) {
+  if (!d) return '—';
+  // If date string contains timestamp, extract the date portion
+  const dateStr = d.includes('T') ? d.split('T')[0] : d;
+  const [y,m,day] = dateStr.split('-');
+  return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m)-1]+` ${parseInt(day)}, ${y}`;
+}
+function renderTable(rows) {
+  const tb = g('tbody');
+  tb.innerHTML = '';
+  if (!rows || !rows.length) {
+    tb.innerHTML = `<tr><td colspan="7" class="td-empty">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 10px;color:var(--border)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      No patients match the current filters.</td></tr>`; return;
+  }
+  rows.forEach(p => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${p.first_name}</strong></td><td>${p.last_name}</td>
+      <td style="color:var(--text-3)">${fmtDOB(p.dob)}</td>
+      <td>${p.age}</td><td>${p.city_name||'—'}</td>
+      <td><span style="background:var(--bg);border:1.5px solid var(--border-2);border-radius:20px;padding:3px 10px;font-size:11.5px;font-weight:600;color:var(--text-2)">${p.camp_name||'—'}</span></td>
+      <td><div class="ag">
+        <button class="act av" onclick="openModal('view','${p.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>View</button>
+        <button class="act ae" onclick="openModal('edit','${p.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Update</button>
+        <button class="act ad" onclick="openDel('${p.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Delete</button>
+      </div></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+// ─── RENDER PAGINATION ────────────────────────────────────────────
+function renderPagination(page, pageSize, total) {
+  const tp = Math.ceil(total / pageSize) || 1;
+  const pag = g('pag');
+  pag.innerHTML = '';
+  const mk = (lbl, p, dis, act) => {
+    const b = document.createElement('button');
+    b.className = 'pgb' + (act ? ' active' : '');
+    b.innerHTML = lbl; b.disabled = dis;
+    b.onclick = () => goPage(p);
+    return b;
+  };
+  pag.appendChild(mk('&#8249; Prev', page - 1, page === 1, false));
+  let pages = [];
+  if (tp <= 7) { for (let i=1;i<=tp;i++) pages.push(i); }
+  else {
+    pages = [1];
+    if (page > 3) pages.push('...');
+    for (let i = Math.max(2, page-1); i <= Math.min(tp-1, page+1); i++) pages.push(i);
+    if (page < tp - 2) pages.push('...');
+    pages.push(tp);
+  }
+  pages.forEach(p => {
+    if (p === '...') {
+      const s = document.createElement('span');
+      s.textContent = '…'; s.style.cssText = 'padding:0 4px;color:var(--text-3);font-size:13px;align-self:center';
+      pag.appendChild(s);
+    } else pag.appendChild(mk(p, p, false, p === page));
+  });
+  pag.appendChild(mk('Next &#8250;', page + 1, page >= tp, false));
+}
+
+// ─── ZIP CODE AUTO-FILL ───────────────────────────────────────────
+let zipTimer = null;
+function onZipInput(val) {
+  clearTimeout(zipTimer);
+  g('zip-spin').classList.remove('on'); g('zip-ok').classList.remove('on');
+  const clean = val.replace(/\D/g,'');
+  if (clean.length === 5) {
+    g('zip-spin').classList.add('on');
+    zipTimer = setTimeout(() => lookupZip(clean), 400);
+  }
+}
+async function lookupZip(zip) {
+  try {
+    const res = await fetch(`${API_BASE}/zip-lookup/${zip}`);
+    g('zip-spin').classList.remove('on');
+    if (!res.ok) return;
+    const json = await res.json();
+    const data = json.data;
+    if (data) {
+      g('mcountry').value = data.country_id || '';
+      if (data.country_id) {
+        await loadStates(data.country_id);
+        g('mstate').value = data.state_id || '';
+        if (data.state_id) {
+          await loadCities(data.state_id);
+          g('mcity').value = data.city_id || '';
+        }
+      }
+      g('zip-ok').classList.add('on');
+      setTimeout(() => g('zip-ok').classList.remove('on'), 2500);
+    }
+  } catch(e) { g('zip-spin').classList.remove('on'); }
+}
+
+// ─── PHOTO ────────────────────────────────────────────────────────
+let curPhoto = '';
+function prevPhoto(e) {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => { curPhoto = ev.target.result; g('photo-prev').src = curPhoto; g('phu').classList.add('loaded'); };
+  r.readAsDataURL(f);
+}
+function resetPhoto() { curPhoto = ''; g('photo-prev').src = ''; g('phu').classList.remove('loaded'); g('photo-inp').value = ''; }
+
+// ─── AGE CALC ─────────────────────────────────────────────────────
+function calcAge() {
+  const dob = g('mdob').value; if (!dob) return;
+  const t = new Date(), b = new Date(dob);
+  let a = t.getFullYear() - b.getFullYear();
+  if (t.getMonth() < b.getMonth() || (t.getMonth() === b.getMonth() && t.getDate() < b.getDate())) a--;
+  g('mage').value = a;
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────
+let mode = '', did = null;
+async function openModal(m, id) {
+  mode = m;
+  g('zip-spin').classList.remove('on'); g('zip-ok').classList.remove('on');
+  const setRO = ro => {
+    g('mbody').querySelectorAll('input:not([type=file]),select').forEach(el => { el.readOnly = ro; el.disabled = ro; el.classList.remove('err'); });
+    g('chkg').querySelectorAll('input').forEach(c => { c.disabled = ro; });
+    g('chkg').querySelectorAll('.chki').forEach(c => c.classList.toggle('ro', ro));
+    g('phu').style.pointerEvents = ro ? 'none' : 'auto';
+    g('mbody').classList.toggle('ro', ro);
+  };
+  
+  if (m === 'create') {
+    g('mtitle').textContent = 'Create New Patient'; g('msub').textContent = 'Fill in the details below';
+    g('save-lbl').textContent = 'Create Patient'; g('btn-save').style.display = '';
+    g('btn-cancel').style.display = ''; g('btn-back').style.display = 'none';
+    g('mid').value = '';
+    ['mfn','mln','mdob','mage','mph','madr','mzp'].forEach(id => g(id).value = '');
+    g('mgen').value = ''; g('mcamp').value = ''; g('mphcc').value = '+1'; g('mcountry').value = '';
+    g('mstate').innerHTML = '<option value="">Select state</option>';
+    g('mcity').innerHTML = '<option value="">Select city</option>';
+    ['chk1','chk2','chk3','chk4'].forEach(c => g(c).checked = false);
+    resetPhoto(); setRO(false);
+    g('pmod').classList.add('open');
+  } else {
+    // Show spinner inside modal during load
+    g('mtitle').textContent = 'Loading...'; g('msub').textContent = '';
+    setRO(true);
+    g('pmod').classList.add('open');
+    
+    try {
+      const res = await fetch(`${API_BASE}/patients/${id}`);
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || 'Failed to load patient');
+      const p = json.data;
+      
+      g('mid').value = p.id; 
+      g('mfn').value = p.first_name || ''; 
+      g('mln').value = p.last_name || '';
+      g('mdob').value = p.dob ? p.dob.substring(0, 10) : '';
+      g('mage').value = p.age || ''; 
+      g('mgen').value = p.gender || '';
+      g('mcamp').value = p.camp_id || ''; 
+      g('madr').value = p.address_line || '';
+      g('mzp').value = p.zip_code || '';
+      
+      // Parse phone code
+      if (p.phone_number) {
+        if (p.phone_number.startsWith('+91')) {
+          g('mphcc').value = '+91';
+          g('mph').value = p.phone_number.replace('+91', '').trim();
+        } else {
+          g('mphcc').value = '+1';
+          g('mph').value = p.phone_number.replace('+1', '').trim();
+        }
+      } else {
+        g('mphcc').value = '+1';
+        g('mph').value = '';
+      }
+      
+      // Load Country -> States -> Cities dynamically
+      g('mcountry').value = p.country_id || '';
+      if (p.country_id) {
+        await loadStates(p.country_id);
+        g('mstate').value = p.state_id || '';
+        if (p.state_id) {
+          await loadCities(p.state_id);
+          g('mcity').value = p.city_id || '';
+        }
+      }
+      
+      g('chk1').checked = (p.isblurredvision === 1);
+      g('chk2').checked = (p.isvisiondifficulty === 1);
+      g('chk3').checked = (p.isdoublevision === 1);
+      g('chk4').checked = (p.iswearingcorrection === 1);
+      
+      if (p.photo_url) { curPhoto = p.photo_url; g('photo-prev').src = p.photo_url; g('phu').classList.add('loaded'); }
+      else resetPhoto();
+      
+      if (m === 'view') {
+        g('mtitle').textContent = 'View Patient'; g('msub').textContent = `${p.first_name} ${p.last_name} · ${p.camp_name || ''}`;
+        g('btn-save').style.display = 'none'; g('btn-cancel').style.display = 'none'; g('btn-back').style.display = '';
+        setRO(true);
+      } else {
+        g('mtitle').textContent = 'Update Patient'; g('msub').textContent = `Editing ${p.first_name} ${p.last_name}`;
+        g('save-lbl').textContent = 'Save Changes'; g('btn-save').style.display = '';
+        g('btn-cancel').style.display = ''; g('btn-back').style.display = 'none';
+        setRO(false);
+      }
+    } catch(e) {
+      g('mtitle').textContent = 'Error'; g('msub').textContent = e.message;
+    }
+  }
+}
+function closeM(id) { g(id).classList.remove('open'); }
+
+async function savePat() {
+  document.querySelectorAll('.err').forEach(e => e.classList.remove('err'));
+  const req = ['mfn','mln','mcamp']; let ok = true;
+  req.forEach(id => { if (!g(id).value.trim()) { g(id).classList.add('err'); ok = false; } });
+  if (!ok) return;
+
+  const saveBtn = g('btn-save');
+  const originalHtml = saveBtn.innerHTML;
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .7s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg> Saving...`;
+
+  const d = {
+    first_name: g('mfn').value.trim(),
+    last_name: g('mln').value.trim(),
+    gender: g('mgen').value,
+    dob: g('mdob').value,
+    phone_number: `${g('mphcc').value} ${g('mph').value.trim()}`.trim(),
+    address_line: g('madr').value.trim(),
+    zip_code: g('mzp').value.trim(),
+    country_id: g('mcountry').value ? parseInt(g('mcountry').value) : null,
+    state_id: g('mstate').value ? parseInt(g('mstate').value) : null,
+    city_id: g('mcity').value ? parseInt(g('mcity').value) : null,
+    camp_id: g('mcamp').value ? parseInt(g('mcamp').value) : null,
+    photo_url: curPhoto,
+    IsBlurredVision: g('chk1').checked ? 1 : 0,
+    IsVisionDifficulty: g('chk2').checked ? 1 : 0,
+    IsDoubleVision: g('chk3').checked ? 1 : 0,
+    IsWearingCorrection: g('chk4').checked ? 1 : 0
+  };
+
+  try {
+    let res;
+    if (mode === 'create') {
+      res = await fetch(`${API_BASE}/patients`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(d)
+      });
+    } else {
+      const id = g('mid').value;
+      res = await fetch(`${API_BASE}/patients/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(d)
+      });
+    }
+
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Failed to save patient');
+
+    closeM('pmod');
+    loadPage(currentPage);
+  } catch(e) {
+    alert(e.message);
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = originalHtml;
+  }
+}
+
+// ─── DELETE ───────────────────────────────────────────────────────
+function openDel(id) {
+  did = id;
+  // Fetch patient name dynamically to show in prompt
+  fetch(`${API_BASE}/patients/${id}`)
+    .then(r => r.json())
+    .then(json => {
+      const p = json.data;
+      g('dmsg').textContent = `Are you sure you want to delete "${p.first_name} ${p.last_name}"? This action is permanent and cannot be undone.`;
+      g('dmod').classList.add('open');
+    })
+    .catch(() => {
+      g('dmsg').textContent = `Are you sure you want to delete this patient? This action is permanent and cannot be undone.`;
+      g('dmod').classList.add('open');
+    });
+}
+async function confirmDel() {
+  try {
+    const res = await fetch(`${API_BASE}/patients/${did}`, {
+      method: 'DELETE'
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Failed to delete patient');
+    
+    closeM('dmod');
+    loadPage(currentPage);
+  } catch(e) {
+    alert(e.message);
+  }
+}
+
+document.querySelectorAll('.overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+// ─── INITIALIZATION ───────────────────────────────────────────────
+async function init() {
+  await loadCampsDropdowns();
+  await loadCountriesDropdown();
+  await loadPage(1);
+}
+init();
+</script>
+</body>
+</html>
